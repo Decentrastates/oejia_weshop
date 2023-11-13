@@ -423,18 +423,7 @@ class WxappOrder(http.Controller, BaseController):
                         "portal_messages": [],
                     },
                     "goods": [
-                        {
-                            "amount": each_goods.price_unit,
-                            "goodsId": each_goods.product_id.product_tmpl_id.id,
-                            "goodsName": each_goods.name,
-                            "id": each_goods.product_id.id,
-                            "number": each_goods.product_uom_qty,
-                            "product_uom": each_goods.product_uom.name,
-                            "orderId": order.id,
-                            "pic": each_goods.product_id.product_tmpl_id.main_img,
-                            "property": each_goods.product_id.get_property_str(),
-                            "propertyChildIds": each_goods.product_id.attr_val_str,
-                        } for each_goods in order.order_line if each_goods.product_id.id!=delivery_product_id
+                        self._order_line_dict(order, each_goods) for each_goods in order.order_line if each_goods.product_id.id!=delivery_product_id
                     ],
                     "logistics": {
                         "address": order.address,
@@ -465,6 +454,21 @@ class WxappOrder(http.Controller, BaseController):
         except Exception as e:
             _logger.exception(e)
             return self.res_err(-1, str(e))
+
+    def _order_line_dict(self, order, each_goods):
+        ret = {
+            "amount": each_goods.price_unit,
+            "goodsId": each_goods.product_id.product_tmpl_id.id,
+            "goodsName": each_goods.name,
+            "id": each_goods.product_id.id,
+            "number": each_goods.product_uom_qty,
+            "product_uom": each_goods.product_uom.name,
+            "orderId": order.id,
+            "pic": each_goods.product_id.product_tmpl_id.main_img,
+            "property": each_goods.product_id.get_property_str(),
+            "propertyChildIds": each_goods.product_id.attr_val_str,
+        }
+        return ret
 
     def build_traces(self, order, data):
         pass
