@@ -61,6 +61,8 @@ OE商城系统（全功能进销存系统套件） [https://sale.calluu.cn/](htt
 技术分享
 [http://www.oejia.net/](http://www.oejia.net/)
 
-Odoo-OpenERP扩展开发2群：796367461
+Odoo-OpenERP扩展开发3群：713722419
+
+Odoo-OpenERP扩展开发2群：796367461 (已满)
 
 Odoo-OpenERP扩展开发1群：260160505 (已满)
