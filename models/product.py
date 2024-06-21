@@ -4,6 +4,8 @@ import json
 
 from odoo import models, fields, api
 
+from .. import defs
+
 _logger = logging.getLogger(__name__)
 
 class ProductTemplate(models.Model):
@@ -79,7 +81,7 @@ class ProductProduct(models.Model):
 
     _inherit = "product.product"
 
-    present_price = fields.Float('现价', default=0, required=True) #暂未用,目前取Odoo的价格
+    present_price = fields.Float('现价', default=0, digits=defs.get_precision())
     qty_public = fields.Integer('库存', default=0, required=True)
     attr_val_str = fields.Char('规格', compute='_compute_attr_val_str', store=True, default='')
 
@@ -94,7 +96,7 @@ class ProductProduct(models.Model):
         return ''
 
     def get_present_price(self, quantity=1):
-        return self.lst_price or self.product_tmpl_id.list_price
+        return self.present_price or self.lst_price or self.product_tmpl_id.list_price
 
     def get_present_qty(self):
         return self.qty_public
