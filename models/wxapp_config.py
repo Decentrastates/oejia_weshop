@@ -66,6 +66,9 @@ class WxappConfig(models.Model):
         else:
             return int(self._platform.replace('wxapp|', ''))
 
+    def get_company_id(self):
+        return False
+
     @api.model
     def get_from_team(self, team_id):
         config = self.search([('team_id', '=', team_id)])

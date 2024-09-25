@@ -114,8 +114,8 @@ class BaseController(object):
         header_fm_type = request.httprequest.headers.get("Fm-Type")
         if header_fm_type:
             fm_type = header_fm_type
-        env.context = dict(env.context, entry_id=entry.get_id(), fm_type=fm_type)
-        entry.env.context = dict(entry.env.context, entry_id=entry.get_id(), fm_type=fm_type)
+        env.context = dict(env.context, entry_id=entry.get_id(), fm_type=fm_type, entry_company_id=entry.get_company_id())
+        entry.env.context = dict(entry.env.context, entry_id=entry.get_id(), fm_type=fm_type, entry_company_id=entry.get_company_id())
 
     def _check_user(self, sub_domain, token):
         wxapp_entry = request.env['wxapp.config'].sudo().get_entry(sub_domain)
